@@ -1,0 +1,69 @@
+\section{Preliminaries}
+
+\noindent
+\textbf{The backbone model.}
+We adapt the Bitcoin Backbone model~\cite{EC:GarKiaLeo15} to infinihe executions. Here we give a brief
+overview of the elements of the Bitcoin Backbone model we will make use of.
+We consider a setting in which $n$ parties (numbered $1$ through $n$) collaborate to establish consensus on
+an ever-growing ledger. Among them, $t$ are controlled by an adversary. We model
+the parties as Interactive Turing Machines which are controlled by an
+environment $\mathcal{E}$ (akin to the role of the environment in the Universal
+Compasibility~\cite{EPRINT:Canetti07} model). Our treatment is synchronous: time
+% TODO: Check UC reference
+is split into discrete \emph{rounds}. A round constitutes sufficient time for a
+network message to reach the whole network. At the beginning of each round, the
+environment activates every party in order. At the end of the round, the party
+can broadcast a message. The message broadcast by each parties during the
+previous round is received by all parties at the beginning of the next round.
+The adversary has a chance to see the messages broadcast during a round before
+she can execute her attack, and is therefore a \emph{rushing adversary}. The
+adversary can modify the order of message delivery and inject arbitrary
+messages, as long as no messages are lost. Hence, we assume that the network is
+reliable but anonymous (i.e., Sybil attackable~\cite{DBLP:conf/iptps/Douceur02}).
+The adversary is allowed to perform different reorderings and message injections
+for each receipient in an effort to make them disagree with one another.
+The parties share a reference string, the genesis block $\mathcal{G}$, prior to
+which no mining has occurred.
+Each honest party maintains a local chain $\chain$ which begins with the Genesis
+block. The party attempts to \emph{mine} a new block on top of the currently
+adopted chain. Each party has $q \in \mathbb{N}$ attempts to mine a block during
+a round, each attempt of which has a constant probability $p$ of succeeding
+(the constant probability assumption corresponds to constant \emph{difficulty}
+in the polynomial setting, but the notion of a mining target and difficulty are
+ill-defined in infinite executions). The adversary, collectively through its $t$
+parties, can make $tq$ mining attempts per round.
+The newly mined block contains transactions that the miner introduces into the
+\emph{data} portion of the block. If an honest party successfully mines a block,
+she extends her local chain with $\chain$ the new block $B$ to obtain $\chain B$
+and subsequently \emph{broadcasts} the extended chain. While honest parties
+immediately broadcast blocks, the adversary can choose
+to withhold blocks and broadcast them at a later time, a strategy which is
+useful for various attacks including the infamous
+\emph{selfish mining attack}~\cite{FC:EyaSir14}. When an honest party receives a
+new candidate chain from the network, she compares its \emph{length} against the
+local chain and \emph{adopts} the chain from the network in case it is longer.
+
+\noindent
+\textbf{Chain Traversal.}
+Chains are sequences of blocks. We will adopt the following notation for
+referring to blocks within a chain. Let $\chain[i]$ indicate the $i^\text{th}$
+block in the chain, where $\chain[0]$ is the first block of the chain. Every
+valid chain must begin with the genesis block, therefore it will have $\chain[0]
+= \mathcal{G}$. Let $\chain[-i]$ indicate the $i^\text{th}$ block from the end.
+We will call the most recent block of the chain, i.e., $\chain[-1]$, the
+\emph{tip}. Let the range notation $\chain[i{:}j]$ indicate the subsequence of
+consecutive blocks in $\chain$ starting from the $i^\text{th}$ block (inclusive)
+and ending in the $j^\text{th}$ block (exclusive). Range indices can also be
+negative. Omitting the start index of the range is taken to mean that the
+subsequence is to begin at the beginning of the chain, while omitting the end
+index of the range is taken to mean that the subsequence is to end at the end of
+the chain. Therefore, $\chain[:k]$ indicates the first $k$ blocks of the chain,
+while $\chain[-k:]$ indicates the last $k$ blocks of the chain.
+
+The indexing notation should not be confused with $[n]$ which indicates the set
+of all integers from $1$ (inclusive) to $n$ (inclusive). We will treat
+mathematical functions as sets of tuples from the input to the output. Hence, if
+$f = \{(1, 2), (3, 4)\}$, then $f(1) = 2$ and $f(3) = 4$. We will use $|\chain|$
+to indicate the length of a sequence and $\epsilon$ to indicate the empty
+sequence. We denote concatenation of a sequence $\chain$ with an element $b$
+using $\chain b$. We use $\aleph_0$ for the cardinality of the natural numbers.

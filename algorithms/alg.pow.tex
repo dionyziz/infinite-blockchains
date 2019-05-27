@@ -1,0 +1,14 @@
+\begin{algorithm}
+  \caption{\label{alg.pow}The proof-of-work algorithm.}
+    \begin{algorithmic}[1]
+        \Function{\sf pow}{$\chain, \vec{x}$}
+            \For{$i \gets 1 \text{ to } q$}
+                \Let{b'}{\mine(\chain[-1], \vec{x})}
+                \If{$b' \neq \bot$}
+                    \State\Return{$\chain b'$}
+                \EndIf
+            \EndFor
+            \State\Return{$\chain$}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}

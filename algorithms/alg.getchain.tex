@@ -1,0 +1,11 @@
+\begin{algorithm}
+  \caption{\label{alg.getchain}The getchain algorithm.}
+    \begin{algorithmic}[1]
+        \Function{\sf getchain}{$b$}
+            \If{$b = \bot$}
+                \State\Return{$\epsilon$}
+            \EndIf
+            \State\Return{$\textsf{getchain}(\getparent(b)) b$}
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}

@@ -1,0 +1,23 @@
+\begin{algorithm}
+  \caption{\label{alg.round}The blockchain backbone protocol in the world of
+  $\mathcal{F}_{BT}$.}
+    \begin{algorithmic}[1]
+        \Let{\chain}{\mathcal{G}}
+
+        \Function{\sf round}{$\vec{x}$}
+          \Let{\overline{B}}{\getmail()}
+          \Let{\chain'}{\chain}
+          \For{$B \in \overline{B}$}
+            \Let{\chain''}{\textsf{getchain}(B)}
+            \If{$|\chain''| > |\chain'|$}
+              \Let{\chain'}{\chain''}
+            \EndIf
+          \EndFor
+          \Let{\chain'}{\textsf{pow}(\chain', \vec{x})}
+          \If{$\chain' \neq \chain$}
+            \Let{\chain}{\chain'}
+            \State{$\broadcast(\chain'[-1])$}
+          \EndIf
+        \EndFunction
+    \end{algorithmic}
+\end{algorithm}

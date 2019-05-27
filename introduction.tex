@@ -1,0 +1,62 @@
+\section{Introduction}
+
+Blockchain protocols attempt to solve the problem of maintaining a decentralized
+ledger. A population of nodes wishes to report an append-only ledger which
+is consistent and irreversible among all honest parties, a property called
+\emph{persistence}, and eventually contains all application data (\emph{transactions}) which the honest parties
+attempt to inject into it, a property called \emph{liveness}. To achieve this,
+each honest party locally maintains a \emph{chain} and attempts to \emph{mine}
+on top of it to extend it~\cite{EC:GarKiaLeo15}. The probability of successfully
+mining a block is assumed to be bounded. When a block is mined successfully, it
+is broadcast to the rest of the nodes and the nodes adopt the longest blockchain
+that they see.
+
+This protocol gives rise to three properties that are attained by honest chains:
+\begin{enumerate}
+  \item \textbf{Chain growth.} The chain of each honest party grows at least by
+        a certain rate.
+  \item \textbf{Common prefix.} If a particular short suffix is removed from
+        each honestly adopted chain, all the chains coincide.
+  \item \textbf{Chain quality.} Any large enough portion of an honestly adopted
+        chain contains at least some percentage of honestly generated blocks.
+\end{enumerate}
+
+The Common Prefix property ensures that, if a small amount of blocks is pruned
+from the end of an honestly adopted chain, the remaining chain is \emph{stable}
+and contains data which can be reported as part of a ledger. This property
+ensures that the ledger built on top of the chain has \emph{persistence}:
+any transaction reported as stable will eventually be included by all
+parties in the same ledger position and will not
+be reverted in the future. On the one hand, \emph{chain growth} and \emph{chain
+quality} together ensure that the ledger has \emph{liveness} in that it eventually
+reports honestly broadcast transactions in it.
+
+These results have been established in the literature for
+\emph{polynomially-bound} executions of blockchain protocols. However, real
+blockchain protocol executions never terminate. Hence, the natural question
+arises: Does the protocol still attain these properties if we leave it to run
+\emph{ad infinitum}? Answering this question poses certain technical
+difficulties which do not make it straightforward. First, we need to define
+what it means for a party executing for an unbounded amount of time to \emph{adopt} an
+infinitely-sized blockchain and to \emph{report} an infinitely-sized ledger,
+given that the parties are modelled as Turing Machines which, at any finite
+point in time, can only have used a finite amount of memory and therefore
+adopted a finite blockchain and a finite ledger. Secondly, the basic tools used
+to prove blockchains secure and to model proof-of-work have inherent
+polynomial-time restrictions. The primary issue is that of
+bounding proof-of-work queries. In classical proof-of-work treatments,
+the limits on the computational majority are enforced using the Random Oracle
+model. However, in our case, this model is inherently problematic, as
+non-polynomial adversaries can break it and even honest infinitely-running
+executions will inevitably run into collisions. More fundamentally, any use of a
+security parameter is not possible in this context, as bad events which
+happen with negligible probability in some parameter blow up when the execution
+becomes exponential. This requires that we abstract the idea of block tree
+maintenance into a separate ideal functionality and highlights the properties
+required for work-based consensus.
+
+\import{./}{motivation.tex}
+
+\import{./}{related.tex}
+
+\import{./}{contributions.tex}

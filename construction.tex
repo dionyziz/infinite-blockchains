@@ -1,0 +1,21 @@
+\section{Construction}
+
+Our proposed protocol is not very different from the existing Bitcoin Backbone
+protocol, with the notable exception that it makes use of our functionality
+from Section~\ref{sec.functionality}. The proof-of-work is performed by invoking
+the $\mine$ method as seen in Algorithm~\ref{alg.pow}. Once the tip of a chain
+is known, the whole chain can be retrieved as seen in
+Algorithm~\ref{alg.getchain} (the functionality ensures that knowing a child
+implies knowing its parent).
+
+The full honest algorithm is illustrated in Algorithm~\ref{alg.round}. Each
+honest party locally maintains a (finite) chain $\chain$, which it extends by
+mining on top of it. If mining is successful, they $\broadcast$ the newly
+discovered block to the network. Additionally, if they change their adopted
+chain, they also broadcast it to the network. Finally, they receive newly
+discovered blocks from the previous round using $\getmail$ and adopt the longest
+chain on the network as long as it is better than the local chain.
+
+\import{./}{algorithms/alg.pow.tex}
+\import{./}{algorithms/alg.getchain.tex}
+\import{./}{algorithms/alg.round.tex}

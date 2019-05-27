@@ -1,0 +1,33 @@
+\noindent
+\textbf{Motivation.}
+As a supertask, infinite blockchains are not realizable in practice. Their study
+is motivated as follows. First, while blockchain protocols have been modelled as
+executions which are stopped and completed after finite polynomial time, this is
+not actually what happens in the real protocol. The question of what happens if
+a blockchain protocol is left to run \emph{ad infinitum} therefore comes up
+naturally. Secondly, taking the case of infinite-time execution allows us to
+separate the combinatorial properties of chain structures and study them
+separately from the cryptographic mechanisms through which they are realized in
+polynomial settings. This approach makes it necessary to remove instances of
+cryptographic signatures or the Random Oracle model, as they depend on a
+security parameter in which the execution must be polynomial. Therefore, the
+approach highlights the bare essential properties of chains. Last, because there
+is no security parameter involved, the treatment becomes simpler and more
+direct. As such, Chernoff bound applications to polynomially growing structures
+(in which results are proven \emph{with overwhelming probability}) are turned
+into simpler Law of Large Number applications to infinitely sized structures (in
+which results are proven \emph{almost surely}). While this somewhat deviates
+from the concrete setting of realistic protocols, it gives rise to a novel
+proving strategy for the study of blockchain protocols which we feel is
+particularly instructive: Before studying a proposed protocol in the polynomial
+setting, which involves many nuanced details, the proposed protocol can be
+studied in the infinite setting. Although this process may not confirm that the
+proposed protocol is secure, it can highlight attacks which would be
+significantly more difficult to find in a polynomial-time treatment. Finally,
+in our infinite setting, it suffices to show that good properties hold with
+respect to the \emph{expected value} of our random variables, as concentration
+is ensured by the law of large numbers. Our model therefore establishes a
+theoretical justification for the widespread cryptographer practice of proof
+sketches in which good properties are shown \emph{in expectation} instead of
+\emph{with high probability}, but also highlights the shortcomings of this
+approach.

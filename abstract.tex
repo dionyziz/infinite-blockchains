@@ -1,0 +1,28 @@
+\begin{abstract}
+  Blockchain protocols have been studied as the solution to the anonymous
+  byzantine agreement problem in which proof-of-work is used to distinguish
+  honest majority and establish liveness and persistence of a decentralized
+  ledger with overwhelming probability among polynomially-bound parties. In such
+  settings, it is posited that the execution of the protocol completes after
+  polynomial time. This allows the use of standard cryptographic modelling
+  techniques such as the Random Oracle.
+
+  In this paper, we consider the setting in which non-polynomial nodes
+  collaborate to establish \emph{liveness} (eventual inclusion) and
+  \emph{persistence} (agreement) of a decentralized ledger under honest
+  computational majority. Contrary to polynomially-bound executions, we consider
+  chains which are growing unboundedly, and hence construct ledgers that have
+  infinite elements. We bypass the need for the Random Oracle model, which can
+  work only in polynomial-time settings, using a novel functionality which
+  maintains a blocktree and captures the essential properties of a growing
+  blockchain and bounded ``hashing power.'' We show that the standard
+  \emph{backbone} blockchain protocol for the polynomially-bound
+  setting is also a protocol for the unbounded setting. We put
+  forth appropriate definitional extensions for chain properties and show that the
+  (potentially infinite) chains produced by this protocol have the properties of
+  \emph{chain growth}, \emph{common prefix} and \emph{chain quality} and give
+  rise to the \emph{liveness} and \emph{persistence} properties of a
+  (potentially infinite) decentralized ledger. Contrary to the
+  polynomially-bound setting where results are proven with \emph{overwhelming
+  probability}, our results are proven \emph{almost surely}.
+\end{abstract}

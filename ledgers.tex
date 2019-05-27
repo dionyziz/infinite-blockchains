@@ -1,0 +1,51 @@
+\section{Desirable Properties of Ledgers}
+
+We will now study executions which are \emph{unbounded}, i.e., they never halt
+and that \emph{make progress}, i.e., advance rounds in perpetuity. As such, in
+these executions, every round number $r \in \mathbb{N}$ will eventually appear.
+
+The protocol which we will build allows the environment to ask an honest party
+to inject a transaction into the next block that they are mining. The honest
+party protocol then provides a method to \emph{read} the ledger of the party,
+which returns a sequence of transactions. Let $\ledger_\party^r$ denote the
+ledger reported by party $\party$ at round $r$. While at every round every
+party's reported ledger is finite, we can take the ledgers to the limit and
+define the \emph{eventually adopted ledger} of a party.
+
+\begin{definition}[Eventually adopted ledger]
+  Let $\party$ be a party in some execution. We define the \emph{eventually
+  adopted ledger} $\ledger_\party^\infty$ of the party to be
+  a (potentially countably infinite) sequence of transactions as follows. The
+  $i^\text{th}$ element of $\ledger_\party^\infty$ is defined to be $\tx$
+  \emph{iff} there exists a round $r \in \mathbb{N}$ such that for every round
+  $r' > r$, it holds that $\ledger_\party^r[i] = \tx$.
+\end{definition}
+
+The above definition includes a transaction in the eventually adopted ledger if
+its position stabilizes for ever after a certain round. Note that ill-behaving
+blockchain protocols can give rise to eventually adopted ledgers which are
+finite; or which are countably infinite but partially defined; or which are
+different for every party. It is desired that the eventually adopted ledgers of
+all parties are infinite, in agreement, and total. Let us now provide
+definitional extensions of the known properties that a distributed ledger must
+have.
+
+\begin{definition}[Persistence]
+  A ledger protocol has \emph{persistence} if for every honest parties
+  $\party_1, \party_2$ it holds that
+  $\ledger_{\party_1}^\infty = \ledger_{\party_2}^\infty$. We use
+  $\ledger^\infty$ to refer to that common ledger. Furthermore, we require that
+  $\ledger^\infty$ is total.
+\end{definition}
+
+\begin{definition}[Liveness]
+  A ledger protocol has \emph{liveness} if, whenever all honest parties attempt
+  to inject a transaction $\tx$ for every round after a given round
+  $r \in \mathbb{N}$, the transaction appears in $\ledger_\party^\infty$ for all
+  $\party$.
+\end{definition}
+
+It follows that, if an infinite distributed ledger protocol has persistence and
+liveness and is used in an execution where fresh transactions always appear
+anew in the environment in perpetuity, then $\ledger^\infty$ will be
+everywhere well-defined and $|\ledger^\infty| = \aleph_0$.

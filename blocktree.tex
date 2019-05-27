@@ -1,0 +1,119 @@
+\begin{figure*}
+\fbox{
+	\begin{minipage}{0.9 \textwidth}
+  The \emph{block tree} functionality is parameterized by the number of parties
+  $n$, the number of adversarial parties $t$, the number of queries per
+  round $q$, and the probability of query success $p$.
+
+  The functionality maintains the following state variables:
+  \begin{enumerate}
+    \item $\blocks$:
+          A counter indicating how many blocks have been mined until now.
+    \item $\indices$:
+          A set of triplets
+          $(\party, i, b)$ where $\party \in [n]$ is the index of a party,
+          $i \in [\blocks]$ is the
+          index of a block in the view of the functionality, and $b$ is the index of a
+          block in the view of party $\party$. The triplet indicates that party
+          $\party$ uses $b$ to refer to block $i$.
+    \item $\mail$:
+          A set of pairs $(\party, \vec{m})$, where
+          $\party \in [n]$ is the index of a party and $\vec{m}$ is a list of
+          previously unseen blocks for $\party$.
+    \item $\prevmail$:
+          A set containing the mail sent during the previous round to be
+          delivered at the current round.
+    \item $\parent$:
+          A set of tuples $(i', i)$ to maintain the
+          parent-child relationship of the block tree, indicating that block
+          $i'$ is the parent of block $i$.
+    \item $\data$:
+          A set of tuples $(i, \vec{x})$ to indicate
+          that block $i$ contains data $\vec{x}$, where $\vec{x}$ is a sequence
+          of transactions that are defined by the application.
+    \item $\queries$:
+          A set of tuples $(\party, q')$ containing the remaining queries
+          $q' \in [q]$ of party $\party$ for the current round.
+  \end{enumerate}
+
+  At the beginning of the execution, set $\blocks$ to $1$ and $\indices$ to
+  $\{\party \in [n]: (\party, 1, 1)\}$ (indicating that every party $\party$ has
+  seen the genesis block and will use $1$ to refer to block $1$). Set
+  $\mail(\party) = \emptyset$ for every party $\party$ and $\prevmail =
+  \emptyset$. Set $\parent(0) = \bot$ to indicate that the genesis block has
+  no parent and $\data(0) = \epsilon$ to indicate that the genesis block has no
+  transactions.
+
+  At the beginning of each new round, clear the mailboxes of
+  all parties by setting $\prevmail = \mail$ and $\mail(\party) = \emptyset$ for
+  every party $\party$ and reset the queries by setting
+  $\queries = \{(\party, q): \party \in [n]\}$.
+
+  Let $\fresh(\party) = \max\{b': \exists i': (\party', i', b') \in \indices\} +
+  1$ indicate the next available block index in the view of party $\party$. Let
+  $\lclgbl(\party, b)$ be $\bot$ if there is no $i$ such that $(\party, i, b) \in
+  \indices$. Otherwise, let $\lclgbl(\party, b) = i$. Let
+  $\gbllcl(\party, i)$ be $\bot$ if there is no $b$ such that
+  $(\party, i, b) \in \indices$. Otherwise, let $\gbllcl(\party, i) = b$.
+
+  Let $\party$ indicate the index of a party invoking a given method. The
+  adversary can choose to invoke any method by assuming the identity of any
+  corrupted party of her choosing.
+
+  The functionality supplies the following methods:
+
+	\begin{itemize}
+      \item $\getmail()$:
+            Returns $\prevmail(\party)$.
+			\item $\mine(b, \vec{x})$:
+            Attempt to mine a block with parent $b$ and application data
+            $\vec{x}$.
+
+            If $\queries(\party) = 0$, return $\bot$. Otherwise,
+            decrement $\queries(\party)$.
+            Let $i = \lclgbl(\party, b)$. If $i \neq \bot$, flip a
+            biased random coin with distribution $\{0: 1 - p, 1: p\}$ and set
+            its outcome to random variable $X$.
+
+            If $X = 0$, then the return $\bot$, indicating that
+            mining has been unsuccessful. Otherwise, increment
+            $\blocks$ indicating that mining has been successful and
+            place $(\party, \blocks, b')$ into
+            $\indices$, where $b' = \fresh(\party)$.
+            Set $\parent(\blocks) = i$ and $\data(\blocks) = \vec{x}$.
+            Finally, return $b'$.
+      \item $\getparent(b)$:
+            Let $i = \lclgbl(\party, b)$. If $i = \bot$, return $\bot$.
+            Otherwise, return $\gbllcl(\party, \parent(i))$.
+      \item $\getdata(b)$:
+            Let $i = \lclgbl(\party, b)$. If $i = \bot$, return $\bot$.
+            Otherwise, return $\gbllcl(\party, \data(i))$.
+      \item $\broadcast(b)$:
+            For every party $\party' \neq \party$, invoke
+            $\reveal(b, \party')$.
+      \item $\reveal(b, \party')$:
+            Let $i = \lclgbl(\party, b)$. If
+            $i = \bot$ or $\gbllcl(\party', i) \neq \bot$,
+            return $\bot$ (to ensure that party $\party'$ has
+            not yet seen block $i$). Let
+            $b' = \fresh(\party')$.
+            Place the new triplet $(\party', i, b')$ into $\indices$ and
+            set $\mail(\party') = \mail(\party') b'$.
+            If $\parent(i) \neq \bot$ and $\gbllcl(\party', \parent(i)) = \bot$,
+            invoke $\textsf{reveal}(\textsf{getparent}(i), \party')$.
+      \item $\snoopmail(\party')$:
+            If $\party$ is not adversarial, return $\bot$. Otherwise, return
+            $\mail(\party')$.
+      \item $\injectmail(\party', B)$:
+            If $\party$ is not adversarial, return $\bot$.
+            Check if a permutation of $\mail(\party')$ is a subsequence of $B$.
+            If not, return $\bot$. Otherwise, set $\mail(\party') = B$.
+  \end{itemize}
+
+	\end{minipage}
+}
+\caption{
+The \emph{block tree} functionality $\mathcal{F}_{BT}$
+\label{fig:blocktree}
+}
+\end{figure*}
