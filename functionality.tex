@@ -48,7 +48,10 @@ aware of which blocks. This is useful as the adversary can withhold blocks and
 it must not be possible to mine on top of them. The index of a specific block
 may be different in the view of different parties, as blocks can be received in
 a different order. When party $p_1$ refers to block with index $i$, it may be a
-different block from the block with index $i$ referred by party $p_2$.
+different block from the block with index $i$ referred by party $p_2$. The
+block tree functionality maintains a \emph{global view} of the tree, while each
+party has a \emph{local view} of the tree, with potentially different indices.
+This is illustrated in Figure~\ref{fig:functionality-views}.
 
 The full functionality is illustrated in Figures~\ref{fig:blocktree1}
 and~\ref{fig:blocktree2}. All methods can be used by both the honest parties and
@@ -58,6 +61,15 @@ only be used by her. Furthermore, honest parties always reveal by issuing a
 $\broadcast$ and so a selective $\reveal$ will only be used by the adversary.
 
 \import{./}{blocktree.tex}
+
+\begin{figure*}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{fig/functionality-views.pdf}
+  \caption{The global view of the blocktree functionality is the combined view
+  of partial local views of individual parties.}
+  \label{fig:functionality-views}
+  \end{center}
+\end{figure*}
 
 \begin{remark}[Globally indexed blocks]
 We could have opted to simply index blocks by the global order of generation and
