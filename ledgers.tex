@@ -1,8 +1,28 @@
-\section{Desirable Properties of Ledgers}
+\section{Unbounded Executions and Ledgers}
 
 We will now study executions which are \emph{unbounded}, i.e., they never halt
 and that \emph{make progress}, i.e., advance rounds in perpetuity. As such, in
 these executions, every round number $r \in \mathbb{N}$ will eventually appear.
+While at any point in time the execution has run for a finite amount of time and
+every party locally has finite state, we can consider
+$\textsc{view}^{t,n}_{\Pi,\mathcal{A},\mathcal{Z}}$, the random variable of a
+unbounded protocol execution of protocol $\Pi$ under adversary $\mathcal{A}$ and
+environment $\mathcal{Z}$. This random variable is a countably infinite sequence
+each element of which is the concatenation of the local \emph{log} of the
+participating parties and the environment for every round $r$. Note that,
+contrary to the Universal Composability framework~\cite{FOCS:Canetti01} from
+which we borrow the execution model, our
+executions never halt and thus there is no specific \emph{output} by the
+environment or the parties, hence our random variable pertaining to the
+\textsc{view} of an execution must necessarily speak about the \emph{log} of the
+machines instead of their \emph{outputs}. To facilitate this treatment, we
+assume that a global \textsc{log} functionality is made available to the parties
+and the environment and it can be invoked by the parties at the end of each
+round. The \textsc{log} functionality logs a given (finite) string to the
+$\textsc{view}$, together with the current round index as well as the index of
+the party who requested the particular recording. The honest parties log their
+incoming transactions and their adopted chains at the end of every round. We can
+hence argue about executions despite them never halting.
 
 The protocol which we will build allows the environment to ask an honest party
 to inject a transaction into the next block that they are mining. The honest
