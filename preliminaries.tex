@@ -2,10 +2,10 @@
 
 \noindent
 \textbf{The backbone model.}
-We adapt the Bitcoin Backbone model~\cite{EC:GarKiaLeo15} to infinihe executions. Here we give a brief
+We adapt the Bitcoin Backbone model~\cite{EC:GarKiaLeo15} to infinite executions. Here we give a brief
 overview of the elements of the Bitcoin Backbone model we will make use of.
-We consider a setting in which $n$ parties (numbered $1$ through $n$) collaborate to establish consensus on
-an ever-growing ledger. Among them, $t$ are controlled by an adversary. We model
+We consider a setting in which a fixed number of $n \in \mathbb{N}$ parties (numbered $1$ through $n$) collaborate to establish consensus on
+an ever-growing ledger. Among them, $t \in \mathbb{N}$ (with $t < n$) are controlled by an adversary. We model
 the parties as Interactive Turing Machines which are controlled by an
 environment $\mathcal{E}$ (akin to the role of the environment in the Universal
 Compasibility~\cite{EPRINT:Canetti07} model). Our treatment is synchronous: time
@@ -27,7 +27,7 @@ which no mining has occurred.
 Each honest party maintains a local chain $\chain$ which begins with the Genesis
 block. The party attempts to \emph{mine} a new block on top of the currently
 adopted chain. Each party has $q \in \mathbb{N}$ attempts to mine a block during
-a round, each attempt of which has a constant probability $p$ of succeeding
+a round, each attempt of which has a constant probability $p > 0$ of succeeding
 (the constant probability assumption corresponds to constant \emph{difficulty}
 in the polynomial setting, but the notion of a mining target and difficulty are
 ill-defined in infinite executions). The adversary, collectively through its $t$
