@@ -12,9 +12,6 @@
 % \let\endproof\relax
 \usepackage{amsfonts}
 \usepackage{amssymb}
-\iftwocolumn
-	\usepackage{amsthm}
-\fi
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 % \usepackage{hyperref}
 \usepackage{mathtools}
@@ -27,20 +24,6 @@
 \usepackage{enumitem}
 \usepackage{thmtools}
 \usepackage{thm-restate}
-
-\iftwocolumn
-\g@addto@macro{\UrlBreaks}{\UrlOrds}
-\else
-\usepackage{geometry}
-\geometry{
-    a4paper,         % or letterpaper
-    textwidth=15cm,  % llncs has 12.2cm
-    textheight=24cm, % llncs has 19.3cm
-    heightrounded,   % integer number of lines
-    hratio=1:1,      % horizontally centered
-    vratio=2:3,      % not vertically centered
-}
-\fi
 
 \DeclareMathOperator*{\argmax}{arg\,max}
 \DeclareMathOperator*{\argmin}{arg\,min}
@@ -67,13 +50,6 @@
 \def\E{\mathop{{}\mathbb{E}}}
 \def\frc#1#2{{\textstyle\frac{#1}{#2}}}
 %>>>
-
-\newcommand{\Qed}{
-    \iftwocolumn
-    \else
-        \qed
-    \fi
-}
 
 \algblockdefx[Operator]{Operator}{EndOperator}
 [1]{\textbf{operator #1}}
@@ -130,18 +106,6 @@
 
 %page style set to plain
 %pagestyle{plain}
-
-\iftwocolumn
-    \newtheorem{theorem}{Theorem}[section]
-    \newtheorem{corollary}{Corollary}[theorem]
-    \newtheorem{lemma}[theorem]{Lemma}
-
-    \theoremstyle{remark}
-    \newtheorem*{remark}{Remark}
-
-    \theoremstyle{definition}
-    \newtheorem{definition}{Definition}[section]
-\fi
 
 \input{macros}
 
