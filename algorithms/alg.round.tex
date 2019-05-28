@@ -9,7 +9,7 @@
           \Let{\chain'}{\chain}
           \For{$B \in \overline{B}$}
             \Let{\chain''}{\textsf{getchain}(B)}
-            \If{$|\chain''| > |\chain'|$}
+            \If{$|\chain''| > |\chain'|$}\label{alg.round:maxvalid}
               \Let{\chain'}{\chain''}
             \EndIf
           \EndFor

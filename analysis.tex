@@ -1,1 +1,75 @@
 \section{Analysis}
+
+Given an unbounded execution, let $X^r$ for $r \in \mathbb{N}$ denote the random
+variable indicating whether any honest party has been successful in round $r$.
+Let $Y^r$ denote the random variable indicating whether only \emph{one} honest
+party has been successful in round $r$. We call such rounds \emph{uniquely
+successful}. Let $X^r_\party$ denote that party $\party$ has been successful
+during round $r$. Note that, since the execution is unbounded, the number of
+random variables we are considering here is countably infinite.
+
+\begin{definition}[Typical execution]
+  An execution of the protocol of Section~\ref{sec.construction} is
+  \emph{typical} if:
+
+  \begin{enumerate}
+    \item For every honest party $\party$ and every round $r \in \mathbb{N}$,
+          there exists some round $r' > r$ such that $X^{r'}_\party = 1$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}[Honest majority]
+  An execution has \emph{honest majority} if the expectation of a uniquely
+  successful round is more than the expectation of an adversarial round, i.e.,
+  $\E[Y^r] > \E[Z^r]$.
+\end{definition}
+
+\begin{theorem}[Typicality]
+  An execution of the protocol of Section~\ref{sec.construction} is typical
+  \emph{almost surely}.
+\end{theorem}
+\begin{proof}
+  Let $\party$ be an arbitrary honest party and $r \in \mathbb{N}$ be an
+  arbitrary round. Consider the quantity
+  $f = \lim_{r' \to \infty} \sum_{i = r + 1}^{r'} \frac{X^{i}_\party}{r' - r - 1}$.
+  For any $i$, it holds that
+  $\E[X^i_\party] \geq p$. From the Law of Large numbers, $\Pr[f =
+  \E[X^i_\party]] = 1$, therefore $\Pr[f \geq 0] = 1$. From the probabilistic
+  method, it follows that there exists some round $r' > 1$ such that
+  $X^{r'}_\party = 1$.
+  \qed
+\end{proof}
+
+\begin{theorem}[Chain growth]
+  Consider a typical execution of the protocol of
+  Section~\ref{sec.construction}. The protocol has chain growth.
+\end{theorem}
+\begin{proof}
+  Suppose for contradiction that there exists an honest party $\party$ and a round $r$
+  such that for all $r' > r$, it holds that
+  $|\chain_\party^{r'}| \leq |\chain_\party^r|$. First, note that
+  Line~\ref{alg.round:maxvalid} of Algorithm~\ref{alg.round} only allows the
+  local chain to grow, so we will have that
+  $|\chain_\party^{r'}| = |\chain_\party^r|$. If $\party$ is successful at any
+  round $r' > r$, its chain will grow. Therefore we obtain that
+  $\forall r' > r: X^{r'}_\party = 0$. This contradicts typicality.
+  \qed
+\end{proof}
+
+Note that the above holds even when no honest majority exists.
+
+\begin{theorem}[Common prefix]
+  The protocol of Section~\ref{sec.construction} has Common prefix.
+\end{theorem}
+\begin{proof}
+  \dionyziz{Argue that $\lim \frac{Y}{Z} > 1$ in typicality, then use this
+  here...}
+  \qed
+\end{proof}
+
+\begin{theorem}[Chain quality]
+  The protocol of Section~\ref{sec.construction} has Chain quality.
+\end{theorem}
+\begin{proof}
+  \qed
+\end{proof}
