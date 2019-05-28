@@ -50,12 +50,12 @@ may be different in the view of different parties, as blocks can be received in
 a different order. When party $p_1$ refers to block with index $i$, it may be a
 different block from the block with index $i$ referred by party $p_2$.
 
-The full functionality is illustrated in Figure~\ref{fig:blocktree}. All methods
-can be used by both the honest parties and the adversary, with the exception of
-the method $\snoopmail$ and $\injectmail$ which highlights the network advantage
-of a \emph{rushing adversary} and can only be used by her. Furthermore, honest
-parties always reveal by issuing a $\broadcast$ and so a selective $\reveal$
-will only be used by the adversary.
+The full functionality is illustrated in Figures~\ref{fig:blocktree1}
+and~\ref{fig:blocktree2}. All methods can be used by both the honest parties and
+the adversary, with the exception of the method $\snoopmail$ and $\injectmail$
+which highlights the network advantage of a \emph{rushing adversary} and can
+only be used by her. Furthermore, honest parties always reveal by issuing a
+$\broadcast$ and so a selective $\reveal$ will only be used by the adversary.
 
 \import{./}{blocktree.tex}
 
