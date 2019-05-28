@@ -1,5 +1,48 @@
 \section{Desirable Properties of Chains}
 
-Chain Growth
-Common Prefix
-Chain Quality
+Let $\chain^r_\party$ denote the chain adopted by the honest party $\party$ at
+the end of round $r$. We are now ready to define eventually adopted chains.
+
+\begin{definition}[Eventually adopted chains]
+  Let $\party$ be an honest party. The \emph{eventually adopted chain}
+  $\chain^\infty_\party$ is defined as the sequence of blocks such that the
+  $i^\text{th}$ block of $\chain^\infty_\party$ is $B$ \emph{iff} there exists
+  some round $r \in \mathbb{N}$ such that for every round $r' > r$ it holds that
+  $\chain^r_\party[i] = B$.
+\end{definition}
+
+We can think of the above chain as the chain adopted at the end of (infinitely
+running) time. Blocks that belong to this chain are deemed \emph{stable}. While
+each party never arrives at a definite conclusion that a block is stable
+(which means that the protocol remains only of theoretical interest),
+nevertheless we can argue about stable blocks mathematically.
+
+We now state three definitional extensions for the properties of chains.
+
+\begin{definition}[Chain growth]
+  A blockchain protocol satisfies \emph{chain growth} if for every honest
+  party $\party$ and for every round $r$, there exists some round $r' > r$ such
+  that $|\chain^{r'}_\party| > |\chain^r_\party|$.
+\end{definition}
+
+\begin{definition}[Common prefix]
+  A blockchain protocol satisfies \emph{common prefix} if for every honest
+  parties $\party_1, \party_2$ it holds that
+  $\chain^\infty_{\party_1} = \chain^\infty_{\party_2}$. We will refer to this
+  common chain as $\chain^\infty$.
+\end{definition}
+
+If our protocol satisfies both the Chain growth and Common prefix properties,
+then it follows that $\chain^\infty$ is well-defined and
+$|\chain^\infty| = \aleph_0$.
+
+\begin{definition}[Chain quality]
+  A blockchain protocol satisfies \emph{chain quality} if for every honest party
+  $\party$ and for every $k \in \mathbb{N}$ it holds that at least one block in
+  $\chain^\infty_\party[k:]$ has been honestly generated.
+\end{definition}
+
+From these definitions, it follows that, if our blockchain protocol has Common
+prefix, then the distributed ledger protocol arising from it has Persistence.
+Likewise, if our blockchain protocol has Chain growth and Chain quality, then
+the distributed ledger protocol arising from it has Liveness.
