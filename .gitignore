@@ -29,4 +29,3 @@ notes.tex
 *.fdb_latexmk
 *.pdf
 .DS_Store
-Makefile
